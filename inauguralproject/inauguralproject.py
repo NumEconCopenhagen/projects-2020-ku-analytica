@@ -142,35 +142,25 @@ def tax_revenue_new():
 # Loop over all drawn wages, and repeat the optimizer function for optimal l, c and u. Allow for parameters tau0, tau1 and kappa to be 'solved'
 # Define the tax function once again (called tax_z), and add for each tax calculated the value to the empty total tax function
 
-def tax_revenue_objective(x):
-    np.random.seed(12345)
+def tax_revenue_objective(x): 
+    np.random.seed(1234)
     w_z = np.random.uniform(low=0.5, high=1.5,size=100)
     total_tax_z = 0
-    for z, w_z in enumerate(w_z): 
+    for z, w_z in enumerate(w_z):
         l_opt_z, c_opt_z, u_opt_z = opt(w = w_z, eps = 0.3,v = v, tau0 = x[0], tau1 = x[1], kappa = x[2], m = m)
-        tax_z = tau0 * w_z * l_opt_z + tau1 * max(w_z * l_opt_z - kappa, 0)
+        tax_z = tau0*w_z*l_opt_z+tau1*max(w_z*l_opt_z-kappa,0)
         total_tax_z += tax_z
-    return total_tax_z 
+    return total_tax_z
 
-# Now define the bounds of the three parameters
+# Define bounds, create optimizer function to solve for optimal parameter values and assign values to variable names
 
 bnds = ((0.0, 1.0), (0.0, 1.0), (0.0, None))
+out = optimize.minimize(tax_revenue_objective, method='TNC', x0=[0.4, 0.1, 0.4], bounds=bnds)
+tau_0_opt=out.x[0]
+tau_1_opt=out.x[1]
+kappa_opt=out.x[2]
 
-# Set initial guess equal to values from before
-
-opt_parameters = optimize.minimize(tax_revenue_objective, method='TNC', x0=[0.4, 0.1, 0.4], bounds=bnds)
-
-# Assign values to new paramter names
-
-tau_0_opt=opt_parameters.x[0]
-tau_1_opt=opt_parameters.x[1]
-kappa_opt=opt_parameters.x[2]
-
-#Print the function that calculates optimal paramters
-
-print(opt_parameters)
-
-# Print optimal paramter values
+print(out)
 
 #print('Optimal tau_0 is', tau_0_opt)
 #print('Optimal tau_1 is', tau_1_opt)
