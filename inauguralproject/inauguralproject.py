@@ -26,7 +26,7 @@ def u_function(c, l, v, eps):
 
 # Define constraint for x.
 
-def cons(m, w, l, tao0, tau1, kappa):
+def cons(m, w, l, tau0, tau1, kappa):
     x = m + w*l - (tau0*w*l + tau1 * max(w*l - kappa, 0))
     return x
 
@@ -59,7 +59,7 @@ def print_result(w, m, tau0, tau1, kappa, v, eps=0.3):
     print(f'Corresponding utility is: {u_star:.3f}')
 
 # Print result
-print_result(w, m, tau0, tau1, kappa, v, eps=0.3)
+#print_result(w, m, tau0, tau1, kappa, v, eps=0.3)
 
 
 
@@ -79,21 +79,21 @@ for i in range(10000):
 
 # Create plot for optimal values of l for w between 0.5 and 1.5
 
-plt.figure(figsize = (12,8))
-plt.scatter(w_list, l_values)
-plt.xlabel("w")
-plt.ylabel("Optimal l")
-plt.grid(True)
-plt.show()
+#plt.figure(figsize = (12,8))
+#plt.scatter(w_list, l_values)
+#plt.xlabel("w")
+#plt.ylabel("Optimal l")
+#plt.grid(True)
+#plt.show()
 
 # Create plot for optimal values of c for w between 0.5 and 1.5
 
-plt.figure(figsize = (12,8))
-plt.scatter(w_list, c_values)
-plt.xlabel("w")
-plt.ylabel("Optimal c")
-plt.grid(True)
-plt.show()
+#plt.figure(figsize = (12,8))
+#plt.scatter(w_list, c_values)
+#plt.xlabel("w")
+#plt.ylabel("Optimal c")
+#plt.grid(True)
+#plt.show()
 
 ## Question 3 ##
 
@@ -108,7 +108,7 @@ def tax_revenue():
 
 # Print total tax revenue
 
-print(tax_revenue())
+#print(tax_revenue())
 
 ## Question 4 ##
 
@@ -128,6 +128,50 @@ def tax_revenue_new():
         tax_total_new += tax_i_new
     return tax_total_new
 
+
+
 # Print new total tax revenue
 
-print(tax_revenue_new())
+#print(tax_revenue_new())
+
+## Question 5 ##
+
+# Define a tax revenue function, where w gets drawn from a uniform distribution between 0.5 and 1.5.  
+# Set random seed, and draw wage, w, for 10.000 individuals from a random, unirformly distributed mass
+# Initiate an empty tax function
+# Loop over all drawn wages, and repeat the optimizer function for optimal l, c and u. Allow for parameters tau0, tau1 and kappa to be 'solved'
+# Define the tax function once again (called tax_z), and add for each tax calculated the value to the empty total tax function
+
+def tax_revenue_objective(x):
+    np.random.seed(12345)
+    w_z = np.random.uniform(low=0.5, high=1.5,size=100)
+    total_tax_z = 0
+    for z, w_z in enumerate(w_z): 
+        l_opt_z, c_opt_z, u_opt_z = opt(w = w_z, eps = 0.3,v = v, tau0 = x[0], tau1 = x[1], kappa = x[2], m = m)
+        tax_z = tau0 * w_z * l_opt_z + tau1 * max(w_z * l_opt_z - kappa, 0)
+        total_tax_z += tax_z
+    return total_tax_z 
+
+# Now define the bounds of the three parameters
+
+bnds = ((0.0, 1.0), (0.0, 1.0), (0.0, None))
+
+# Set initial guess equal to values from before
+
+opt_parameters = optimize.minimize(tax_revenue_objective, method='TNC', x0=[0.4, 0.1, 0.4], bounds=bnds)
+
+# Assign values to new paramter names
+
+tau_0_opt=opt_parameters.x[0]
+tau_1_opt=opt_parameters.x[1]
+kappa_opt=opt_parameters.x[2]
+
+#Print the function that calculates optimal paramters
+
+print(opt_parameters)
+
+# Print optimal paramter values
+
+#print('Optimal tau_0 is', tau_0_opt)
+#print('Optimal tau_1 is', tau_1_opt)
+#print('Optimal kappa is', kappa_opt)
