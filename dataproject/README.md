@@ -8,7 +8,7 @@ This loades one dataset (from a finance course at UCSD):
 
 1. "financials.csv" downloaded from https://wrds-www.wharton.upenn.edu/?_ga=2.173040611.1389363270.1585921655-712757406.1585388435
 
-Apart from a standard Anaconda Python 3 installation, the project requires the following installations 
+Apart from a standard Anaconda Python 3 installation, the project requires the following installations:
 import pandas as pd
 import statsmodels.formula.api as sm
 import numpy as np
