@@ -1,7 +1,3 @@
 # Model analysis project
 
-Our project is titled **PROJECT TITLE** and is about EXPLAIN.
-
-The **results** of the project can be seen from running [modelproject.ipynb](modelproject.ipynb).
-
-**Dependencies:** Apart from a standard Anaconda Python 3 installation, the project requires no further packages.
+In this project we start by solving the basic Solow model both symbolically and numerically with the bisect model. We then visualize the findings in an example with an interactive figure, in which you can change the parameters yourself, to see how they influence the steady state. Next, we solve an extension of the basic Solow model. This extension is the the R&D based growth model which we solve both symbolically and numerically again. We then illustrate the R&D based model with an interactive figure again, in which you can change the parameters yourself, to see how they influence the steady state.
