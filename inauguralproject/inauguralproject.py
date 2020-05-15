@@ -39,6 +39,17 @@ def obj_function(l, w, m, tau0, tau1, kappa, v, eps):
 # Use optimizer function to maximize (minimize the -u_function):
 
 def opt(w, m, tau0, tau1, kappa, v, eps):
+    
+    """ The function solves the consumer problem by optimizing utility
+    
+       Return the following: 
+        l_star = optimal labor supply
+        c_star = optimal consumption 
+        u_star = utility given the optimal labor and consumption
+        result = prints the results """
+    
+    
+    
     result = optimize.minimize_scalar(obj_function, method='bounded', bounds=(0,1), args=(w, m, tau0, tau1, kappa, v, eps))
     l_star = result.x
     c_star = cons(m, w, l_star, tau0, tau1, kappa)
@@ -154,13 +165,24 @@ def tax_revenue_objective(x):
 
 # Define bounds, create optimizer function to solve for optimal parameter values and assign values to variable names
 
-bnds = ((0.0, 1.0), (0.0, 1.0), (0.0, None))
-out = optimize.minimize(tax_revenue_objective, method='TNC', x0=[0.4, 0.1, 0.4], bounds=bnds)
-tau_0_opt=out.x[0]
-tau_1_opt=out.x[1]
-kappa_opt=out.x[2]
+def ballademager():
+    bnds = ((0.0, 1.0), (0.0, 1.0), (0.0, None))
+    out = optimize.minimize(tax_revenue_objective, method='TNC', x0=[0.4, 0.1, 0.4], bounds=bnds)
+    tau_0_opt=out.x[0]
+    tau_1_opt=out.x[1]
+    kappa_opt=out.x[2]
+    print(['Opitmal tau_0 is:', tau_0_opt],
+          ['Optimal tau_1 is:', tau_1_opt],
+          ['Optimal kappa is', kappa_opt])
 
-print(out)
+
+
+#def print_result123(x):
+    #print('Opitmal labor supply is:' tau_0_opt)
+    #print('Optimal consumption is:' tau_1_opt)
+    #print('Corresponding utility is:' kappa_opt)
+
+#print(out)
 
 #print('Optimal tau_0 is', tau_0_opt)
 #print('Optimal tau_1 is', tau_1_opt)
