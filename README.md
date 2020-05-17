@@ -4,7 +4,7 @@ This portfolio of files has both the three assignments from the semester, as wel
 
 Inaugural Project: The goal of this assignment was to get an understanding general use of python and an understanding of the link between VSCode and github. In the assignment we got the chance to learn to use functions, loops, plotting and several other features in python.
 
-Data Project: Datafetching and cleaning process for an economic analyzis. Our project is titled "Financial analysis - abnormal sales" and is about an econometric analysis of hundreds of companies with focus on sales..
+Data Project: Datafetching and cleaning process for an economic analysis. Our project is titled "Financial analysis - abnormal sales" and is about an econometric analysis of hundreds of companies with focus on sales..
 
 Model Project: Solve choosen economic models using numerical and analytical methods and displaying results. In this project we started by solving the basic Solow model both symbolically and numerically with the bisect model. We then visualize the findings in an example with an interactive figure, in which you can change the parameters yourself, to see how they influence the steady state. Next, we solve an extension of the basic Solow model. This extension is the the R&D based growth model which we solve both symbolically and numerically again. We then illustrate the R&D based model with an interactive figure again, in which you can change the parameters yourself, to see how they influence the steady state.
 
