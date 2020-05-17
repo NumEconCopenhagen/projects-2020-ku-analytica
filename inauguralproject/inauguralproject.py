@@ -108,7 +108,7 @@ for i in range(10000):
 
 ## Question 3 ##
 
-# Define the tax revenue function
+# We start out by defining the tax revenue function
 
 def tax_revenue():
     tax_total = 0
@@ -165,7 +165,7 @@ def tax_revenue_objective(x):
 
 # Define bounds, create optimizer function to solve for optimal parameter values and assign values to variable names
 
-def ballademager():
+def optimal_values():
     bnds = ((0.0, 1.0), (0.0, 1.0), (0.0, None))
     out = optimize.minimize(tax_revenue_objective, method='TNC', x0=[0.4, 0.1, 0.4], bounds=bnds)
     tau_0_opt=out.x[0]
